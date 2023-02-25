@@ -1,4 +1,4 @@
-module github.com/hyperledger/fabric-samples/chaincode/fabcar/external
+module github.com/hyperledger/fabric-samples/chaincode/baas/external
 
 go 1.13
 

@@ -4,18 +4,18 @@
 
 steps:
   - script: ./startFabric.sh javascript
-    workingDirectory: fabcar
+    workingDirectory: baas
     displayName: Start Fabric
   - script: |
       retry -- npm install
       npm ls
-    workingDirectory: fabcar/javascript
-    displayName: Install FabCar Application Dependencies
+    workingDirectory: baas/javascript
+    displayName: Install baas Application Dependencies
   - script: |
       set -ex
       node enrollAdmin
       node registerUser
       node invoke
       node query
-    workingDirectory: fabcar/javascript
-    displayName: Run FabCar Application
+    workingDirectory: baas/javascript
+    displayName: Run baas Application

@@ -4,11 +4,11 @@
 
 steps:
   - script: ./startFabric.sh java
-    workingDirectory: fabcar
+    workingDirectory: baas
     displayName: Start Fabric
   - script: retry -- mvn dependency:go-offline
-    workingDirectory: fabcar/java
-    displayName: Install FabCar Application Dependencies
+    workingDirectory: baas/java
+    displayName: Install baas Application Dependencies
   - script: mvn test
-    workingDirectory: fabcar/java
-    displayName: Run FabCar Application
+    workingDirectory: baas/java
+    displayName: Run baas Application

@@ -38,37 +38,37 @@ jobs:
       - template: templates/install-deps.yml
       - template: templates/commercial-paper/azure-pipelines-javascript.yml
 
-  - job: FabCar_Go
-    displayName: FabCar (Go)
+  - job: baas_Go
+    displayName: baas (Go)
     pool:
       vmImage: ubuntu-18.04
     steps:
       - template: templates/install-deps.yml
-      - template: templates/fabcar/azure-pipelines-go.yml
+      - template: templates/baas/azure-pipelines-go.yml
 
-  - job: FabCar_Java
-    displayName: FabCar (Java)
+  - job: baas_Java
+    displayName: baas (Java)
     pool:
       vmImage: ubuntu-18.04
     steps:
       - template: templates/install-deps.yml
-      - template: templates/fabcar/azure-pipelines-java.yml
+      - template: templates/baas/azure-pipelines-java.yml
 
-  - job: FabCar_JavaScript
-    displayName: FabCar (JavaScript)
+  - job: baas_JavaScript
+    displayName: baas (JavaScript)
     pool:
       vmImage: ubuntu-18.04
     steps:
       - template: templates/install-deps.yml
-      - template: templates/fabcar/azure-pipelines-javascript.yml
+      - template: templates/baas/azure-pipelines-javascript.yml
 
-  - job: Fabcar_TypeScript
-    displayName: FabCar (TypeScript)
+  - job: baas_TypeScript
+    displayName: baas (TypeScript)
     pool:
       vmImage: ubuntu-18.04
     steps:
       - template: templates/install-deps.yml
-      - template: templates/fabcar/azure-pipelines-typescript.yml
+      - template: templates/baas/azure-pipelines-typescript.yml
 
   - job: Lint
     displayName: Lint

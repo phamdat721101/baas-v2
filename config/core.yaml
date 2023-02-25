@@ -558,7 +558,7 @@ chaincode:
     # chaincode. The external builder detection processing will iterate over the
     # builders in the order specified below.
     externalBuilders:
-        - path: /opt/gopath/src/github.com/hyperledger/fabric-samples/chaincode/fabcar/typescript/sampleBuilder
+        - path: /opt/gopath/src/github.com/hyperledger/fabric-samples/chaincode/baas/typescript/sampleBuilder
           name: external-sample-builder
         # - path: /path/to/directory
         #   name: descriptive-builder-name

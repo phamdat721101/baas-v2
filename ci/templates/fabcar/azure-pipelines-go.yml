@@ -4,7 +4,7 @@
 
 steps:
   - script: ./startFabric.sh go
-    workingDirectory: fabcar
+    workingDirectory: baas
     displayName: Start Fabric
   - task: GoTool@0
     displayName: 'Use Go 1.14.2'
@@ -14,8 +14,8 @@ steps:
     displayName: 'go build'
     inputs:
       command: build
-      arguments: '-o "fabcar"'
-      workingDirectory: fabcar/go
-  - script: DISCOVERY_AS_LOCALHOST=TRUE ./fabcar
-    workingDirectory: fabcar/go
-    displayName: Run FabCar Application
+      arguments: '-o "baas"'
+      workingDirectory: baas/go
+  - script: DISCOVERY_AS_LOCALHOST=TRUE ./baas
+    workingDirectory: baas/go
+    displayName: Run baas Application

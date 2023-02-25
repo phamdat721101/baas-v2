@@ -4,19 +4,19 @@
 
 steps:
   - script: ./startFabric.sh typescript
-    workingDirectory: fabcar
+    workingDirectory: baas
     displayName: Start Fabric
   - script: retry -- npm install
-    workingDirectory: fabcar/typescript
-    displayName: Install FabCar Application Dependencies
+    workingDirectory: baas/typescript
+    displayName: Install baas Application Dependencies
   - script: npm run build
-    workingDirectory: fabcar/typescript
-    displayName: Build FabCar application
+    workingDirectory: baas/typescript
+    displayName: Build baas application
   - script: |
       set -ex
       node dist/enrollAdmin
       node dist/registerUser
       node dist/invoke
       node dist/query
-    workingDirectory: fabcar/typescript
-    displayName: Run FabCar Application
+    workingDirectory: baas/typescript
+    displayName: Run baas Application

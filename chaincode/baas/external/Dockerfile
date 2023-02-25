@@ -7,7 +7,7 @@ ARG ALPINE_VER=3.10
 
 FROM golang:${GO_VER}-alpine${ALPINE_VER}
 
-WORKDIR /go/src/github.com/hyperledger/fabric-samples/chaincode/fabcar/external
+WORKDIR /go/src/github.com/hyperledger/fabric-samples/chaincode/baas/external
 COPY . .
 
 RUN go get -d -v ./...
