@@ -12,7 +12,7 @@
         "lint": "tslint -c tslint.json 'src/**/*.ts'",
         "pretest": "npm run lint",
         "test": "nyc mocha -r ts-node/register src/**/*.spec.ts",
-        "start": "fabric-chaincode-node server --chaincode-address baas.org1.example.com:9999 --chaincode-id baas_1.0:01cd60642bf7e22c4dead39171283f516b50b0c98fd42ccbceb751adaddf1586",
+        "start": "fabric-chaincode-node server --chaincode-address baas.org1.example.com:9999 --chaincode-id baas_1.0:1647d7f5d4266a6c6d36cfad435e5ff891bb1fd3bb483c2aa6ece54039c97833",
         "build": "tsc",
         "build:watch": "tsc -w",
         "prepublishOnly": "npm run build"
