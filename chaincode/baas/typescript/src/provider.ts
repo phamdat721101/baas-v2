@@ -3,7 +3,7 @@
  */
 
 import { Context, Contract } from 'fabric-contract-api';
-import { Provider, ServiceStat, ServiceAgreement, RuleDetail, RulePenalty, ContractInfo, ExternalApilist } from './model';
+import { Provider, Customer, ServiceStat, ServiceAgreement, RuleDetail, RulePenalty, ContractInfo, ExternalApilist } from './model';
 
 export class ProviderLogic extends Contract {
 
@@ -52,6 +52,41 @@ export class ProviderLogic extends Contract {
 
         await ctx.stub.putState(proId, Buffer.from(JSON.stringify(provider)));
         console.info('============= END : Create Provider ===========');
+    }
+
+    /*
+        Customer sector
+    */
+    public async createCustomer(ctx: Context, cuId: string, username: string, password: string) {
+        console.info('============= START : Create Customer ===========');
+
+        const customer: Customer = {
+            cuId,
+            username,
+            password            
+        };
+
+        await ctx.stub.putState(cuId, Buffer.from(JSON.stringify(customer)));
+        console.info('============= END : Create Customer ===========');
+    }
+
+    public async queryAllCustomers(ctx: Context): Promise<string> {
+        const startKey = '';
+        const endKey = '';
+        const allResults = [];
+        for await (const {key, value} of ctx.stub.getStateByRange(startKey, endKey)) {
+            const strValue = Buffer.from(value).toString('utf8');
+            let record;
+            try {
+                record = JSON.parse(strValue);
+            } catch (err) {
+                console.log(err);
+                record = strValue;
+            }
+            allResults.push({ Key: key, Record: record });
+        }
+        console.info(allResults);
+        return JSON.stringify(allResults);
     }
 
     //create contract 

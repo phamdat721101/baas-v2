@@ -10,25 +10,28 @@ const { Gateway, Wallets } = require('fabric-network');
 const path = require('path');
 const fs = require('fs');
 
+// load the network configuration
+const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org2.example.com', 'connection-org2.json');
+const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
-async function main() {
+// Create a new file system based wallet for managing identities.
+const walletPath = path.join(process.cwd(), 'wallet');
+
+async function checkIdentity(wallet){
+    // Check to see if we've already enrolled the user.
+    const identity = await wallet.get('appUser');
+    if (!identity) {
+        console.log('An identity for the user "appUser" does not exist in the wallet');
+        console.log('Run the registerUser.js application before retrying');
+        return;
+    }
+}
+
+exports.queryAllProviders = async ()=> {
     try {
-        // load the network configuration
-        const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'org2.example.com', 'connection-org2.json');
-        const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
-
-        // Create a new file system based wallet for managing identities.
-        const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = await Wallets.newFileSystemWallet(walletPath);
-        console.log(`Wallet path: ${walletPath}`);
 
-        // Check to see if we've already enrolled the user.
-        const identity = await wallet.get('appUser');
-        if (!identity) {
-            console.log('An identity for the user "appUser" does not exist in the wallet');
-            console.log('Run the registerUser.js application before retrying');
-            return;
-        }
+        await checkIdentity(wallet);
 
         // Create a new gateway for connecting to our peer node.
         const gateway = new Gateway();
@@ -41,12 +44,9 @@ async function main() {
         const contract = network.getContract('baas');
 
         // Evaluate the specified transaction.
-        // queryCar transaction - requires 1 argument, ex: ('queryCar', 'CAR4')
-        // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
         const result = await contract.evaluateTransaction('queryAllProviders');
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
 
-        // Disconnect from the gateway.
         await gateway.disconnect();
         
     } catch (error) {
@@ -55,4 +55,4 @@ async function main() {
     }
 }
 
-main();
+// main();
