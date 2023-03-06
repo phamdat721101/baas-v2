@@ -75,3 +75,26 @@ exports.queryAllCustomers = async() =>{
         process.exit(1)
     }
 }
+
+exports.getCustomer = async(data) =>{
+    try {
+        const wallet = await Wallets.newFileSystemWallet(walletPath);
+        await checkIdentity(wallet)
+
+        const gateway = new Gateway()
+        await gateway.connect(ccp, {wallet, identity: 'appUser', discovery:{enabled: true, asLocalhost: true}});
+
+        const network = await gateway.getNetwork('mychannel');
+        const contract = network.getContract('baas');
+
+        // Evaluate the specified transaction.
+        const result = await contract.evaluateTransaction('queryCustomer', [data.cuId]);
+        console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
+
+        await gateway.disconnect();
+        return JSON.parse(result.toString())
+    } catch (err) {
+        console.error("Failed to get customer: ", err)
+        process.exit(1)
+    }
+}

@@ -9,6 +9,8 @@ export class ProviderLogic extends Contract {
 
     public async initLedger(ctx: Context) {
         console.info('============= START : Initialize Ledger ===========');
+        
+        //init provider
         const providers: Provider[] = [
             {
                 proId: "pro1",
@@ -21,9 +23,22 @@ export class ProviderLogic extends Contract {
             }
         ];
 
+        //init customer
+        const customers: Customer[] = [
+            {
+                cuId: "cu1",
+                username:"cu1",
+                password: "123"
+            }
+        ]
+
         for (let i = 0; i < providers.length; i++) {
             await ctx.stub.putState(providers[i].proId, Buffer.from(JSON.stringify(providers[i])));
             console.info('Added <--> ', providers[i]);
+        }
+
+        for(let j = 0; j < customers.length; j++){
+            await ctx.stub.putState(customers[j].cuId, Buffer.from(JSON.stringify(customers[j])));
         }
         console.info('============= END : Initialize Ledger ===========');
     }
@@ -35,6 +50,16 @@ export class ProviderLogic extends Contract {
         }
         console.log(providerAsBytes.toString());
         return providerAsBytes.toString();
+    }
+
+    public async queryCustomer(ctx: Context, cuId: string): Promise<string>{
+        const customerAsBytes = await ctx.stub.getState(cuId);
+        if(!customerAsBytes || customerAsBytes.length === 0){
+            throw new Error(`${cuId} does not exist`);
+        }
+
+        console.log(customerAsBytes.toString())
+        return customerAsBytes.toString()
     }
 
     public async createProvider(ctx: Context, proId: string, username: string, password: string) {

@@ -13,10 +13,27 @@ exports.queryAllProviders = async (req, res, next) => {
       data: providers
     });
   } catch (error) {
-    console.error("Error creating customer: ", error)
+    console.error("Error query all providers: ", error)
     next(error);
   }
 };
+
+exports.getProvider = async(req, res, next) =>{
+  try {
+    let data = {
+      proId: req.params.proId
+    }
+    console.log("Data get: ", data)
+    const provider = await providerService.getProvider(data)
+    res.json({
+      code: 0,
+      data: provider
+    })
+  } catch (error) {
+    console.error("Error get provider: ", error)
+    next(error);
+  }
+}
 
 exports.addService = async(req, res, next) =>{
   try {
@@ -124,6 +141,7 @@ exports.addRulePenalty = async(req, res, next) =>{
 }
 
 exports.updateRuleBiding = async(req, res, next) =>{
+  // console.log("PQD update rule: ", req)
   try {
     let request = {
       proId: req.body.proId,

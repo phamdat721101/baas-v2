@@ -34,3 +34,20 @@ exports.queryAllCustomers = async(req, res, next) =>{
     next(err)
   }
 }
+
+exports.getCustomer = async(req, res, next) =>{
+  try {
+    let data = {
+      cuId: req.params.cuId
+    };
+    let customer = await customerService.getCustomer(data)
+    console.log("Spec customer: ", customer)
+    res.json({
+      code: 0,
+      data: customer
+    })
+  } catch (error) {
+    console.error("Error get customer: ", error)
+    next(error)
+  }
+}
