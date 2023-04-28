@@ -1,0 +1,168 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Baas swagger API",
+        "version": "1.0.0",
+        "title": "Baas API",
+        "contact": {
+            "email": "pqd@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "schemes": ["http"],
+    "host": "109.123.233.65:3000",
+    "basePath": "/",
+    "paths" : {
+        "/customer/list" : {
+            "get" : {
+                "summary" : "Get all the customers",
+                "description": "Get all the customers",
+                "produces": ["application/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Customer"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        }, 
+        "/provider/list" : {
+            "get" : {
+                "summary" : "Get all the providers",
+                "description": "Get all the providers",
+                "produces": ["application/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Provider"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/provider/create" : {
+            "post" : {
+                "summary" : "Create provider",
+                "description": "Create provider",
+                "produces": ["application/json"],
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in":"body",
+                        "name":"body",
+                        "description":"Create provider",
+                        "required":true,
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "proId": {
+                                    "type": "string"
+                               },
+                               "username": {
+                                   "type": "string"
+                               },
+                               "password": {
+                                   "type": "string"
+                               },
+                               "status": {
+                                   "type": "string"
+                               }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Provider"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        }      
+    },
+    "definitions": {
+        "Customer": {
+            "type": "object",
+            "properties": {
+                "cuId": {
+                     "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "Provider": {
+            "type": "object",
+            "properties": {
+                "proId": {
+                     "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "InvalidResponse": {
+            "type": "object",
+            "properties": {
+                "statusCode": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+
+        }
+    }
+}
